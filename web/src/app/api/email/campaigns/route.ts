@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "../../../../lib/auth";
-import { prisma } from "../../../../lib/prisma";
+import { authOptions } from '@/lib/auth';
+import { prisma } from '@/lib/prisma';
 
 // No App Router, o limite de tamanho de corpo é configurado no middleware ou no próprio processamento.
 // Vou garantir que a rota trate o erro de forma clara.
