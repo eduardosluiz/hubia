@@ -15,6 +15,7 @@ import AIConfigView from './AIConfigView';
 interface Instance {
   id: string;
   name: string;
+  instanceName?: string;
   number: string;
   status: 'CONNECTED' | 'DISCONNECTED' | 'CONNECTING';
   type: 'MAIN_IA' | 'AGENT';
