@@ -33,7 +33,7 @@ export async function GET() {
     });
 
     // 5. Instâncias Conectadas
-    const connectedInstances = await prisma.whatsappInstance.count({
+    const connectedInstances = await prisma.whatsAppInstance.count({
       where: { tenantId, status: 'CONNECTED' }
     });
 
