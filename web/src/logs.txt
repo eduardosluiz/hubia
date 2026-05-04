@@ -1,20 +1,19 @@
-Commit: fix: relocate prisma client for build persistence 
+Commit: fix: resolve deployment failures by fixing tsconfig aliases and pdf-parse import incompatibility 
 ##########################################
 ### Download Github Archive Started...
-### Mon, 04 May 2026 19:36:10 GMT
+### Mon, 04 May 2026 22:15:25 GMT
 ##########################################
 
 
-╔══════════════════════════════ Nixpacks v1.41.0 ══════════════════════════════╗
-║ setup      │ nodejs_20, npm-9_x, openssl                                     ║
-║──────────────────────────────────────────────────────────────────────────────║
-║ install    │ npm install                                                     ║
-║──────────────────────────────────────────────────────────────────────────────║
-║ build      │ npx prisma generate && npx prisma migrate deploy && npm run     ║
-║            │ build                                                           ║
-║──────────────────────────────────────────────────────────────────────────────║
-║ start      │ npm run start                                                   ║
-╚══════════════════════════════════════════════════════════════════════════════╝
+╔═════════════════ Nixpacks v1.41.0 ════════════════╗
+║ setup      │ nodejs_20, npm-9_x, openssl          ║
+║───────────────────────────────────────────────────║
+║ install    │ npm install                          ║
+║───────────────────────────────────────────────────║
+║ build      │ npx prisma generate && npm run build ║
+║───────────────────────────────────────────────────║
+║ start      │ npm run start                        ║
+╚═══════════════════════════════════════════════════╝
 
 
 Saved output to:
@@ -22,7 +21,7 @@ Saved output to:
 #0 building with "default" instance using docker driver
 
 #1 [internal] load build definition from Dockerfile
-#1 transferring dockerfile: 1.50kB done
+#1 transferring dockerfile: 1.48kB 0.0s done
 #1 DONE 0.0s
 
 #2 [internal] load metadata for ghcr.io/railwayapp/nixpacks:ubuntu-1745885067
@@ -32,13 +31,16 @@ Saved output to:
 #3 transferring context: 2B done
 #3 DONE 0.0s
 
-#4 [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
-#4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
-#4 DONE 0.1s
+#4 [internal] load build context
+#4 ...
 
-#5 [internal] load build context
-#5 transferring context: 40.54MB 0.5s done
-#5 DONE 0.5s
+#5 [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+#5 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
+#5 DONE 0.1s
+
+#4 [internal] load build context
+#4 transferring context: 40.54MB 0.5s done
+#4 DONE 0.5s
 
 #6 [stage-0  2/10] WORKDIR /app/
 #6 CACHED
@@ -53,404 +55,97 @@ Saved output to:
 #9 DONE 0.3s
 
 #10 [stage-0  6/10] RUN --mount=type=cache,id=QgfsUKisego-/root/npm,target=/root/.npm npm install
-#10 31.75 
-#10 31.75 added 99 packages, and audited 100 packages in 31s
-#10 31.75 
-#10 31.75 24 packages are looking for funding
-#10 31.75   run `npm fund` for details
-#10 31.92 
-#10 31.92 5 vulnerabilities (4 moderate, 1 high)
-#10 31.92 
-#10 31.92 To address issues that do not require attention, run:
-#10 31.92   npm audit fix
-#10 31.92 
-#10 31.92 To address all issues (including breaking changes), run:
-#10 31.92   npm audit fix --force
-#10 31.92 
-#10 31.92 Run `npm audit` for details.
-#10 DONE 32.4s
+#10 38.51 
+#10 38.51 added 100 packages, and audited 101 packages in 38s
+#10 38.51 
+#10 38.51 24 packages are looking for funding
+#10 38.51   run `npm fund` for details
+#10 38.79 
+#10 38.79 5 vulnerabilities (4 moderate, 1 high)
+#10 38.79 
+#10 38.79 To address issues that do not require attention, run:
+#10 38.79   npm audit fix
+#10 38.79 
+#10 38.79 To address all issues (including breaking changes), run:
+#10 38.79   npm audit fix --force
+#10 38.79 
+#10 38.79 Run `npm audit` for details.
+#10 DONE 39.7s
 
 #11 [stage-0  7/10] COPY . /app/.
-#11 DONE 0.5s
+#11 DONE 0.4s
 
-#12 [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npx prisma migrate deploy && npm run build
-#12 1.775 Prisma schema loaded from prisma/schema.prisma
-#12 2.798 
-#12 2.798 ✔ Generated Prisma Client (v5.22.0) to ./src/lib/generated/prisma in 388ms
-#12 2.798 
-#12 2.798 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#12 2.798 
-#12 2.798 Tip: Want to react to database changes in your app as they happen? Discover how with Pulse: https://pris.ly/tip-1-pulse
-#12 2.798 
-#12 3.028 npm notice
-#12 3.028 npm notice New major version of npm available! 10.8.2 -> 11.13.0
-#12 3.028 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
-#12 3.028 npm notice To update run: npm install -g npm@11.13.0
-#12 3.028 npm notice
-#12 4.870 Prisma schema loaded from prisma/schema.prisma
-#12 4.888 Datasource "db": PostgreSQL database "postgres", schema "public" at "aws-1-sa-east-1.pooler.supabase.com:5432"
-#12 6.320 
-#12 6.320 1 migration found in prisma/migrations
-#12 6.320 
-#12 8.332 
-#12 8.332 No pending migrations to apply.
-#12 8.755 ┌─────────────────────────────────────────────────────────┐
-#12 8.755 │  Update available 5.22.0 -> 7.8.0                       │
-#12 8.755 │                                                         │
-#12 8.755 │  This is a major update - please follow the guide at    │
-#12 8.755 │  https://pris.ly/d/major-version-upgrade                │
-#12 8.755 │                                                         │
-#12 8.755 │  Run the following to update                            │
-#12 8.755 │    npm i --save-dev prisma@latest                       │
-#12 8.755 │    npm i @prisma/client@latest                          │
-#12 8.755 └─────────────────────────────────────────────────────────┘
-#12 9.097 
-#12 9.097 > web@1.0.0 build
-#12 9.097 > prisma generate && next build
-#12 9.097 
-#12 10.64 Prisma schema loaded from prisma/schema.prisma
-#12 11.92 
-#12 11.92 ✔ Generated Prisma Client (v5.22.0) to ./src/lib/generated/prisma in 410ms
-#12 11.92 
-#12 11.92 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#12 11.92 
-#12 11.92 Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
-#12 11.92 
-#12 13.37 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-#12 13.37 This information is used to shape Next.js' roadmap and prioritize features.
-#12 13.37 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-#12 13.37 https://nextjs.org/telemetry
-#12 13.37 
-#12 13.40 ▲ Next.js 16.1.6 (Turbopack)
-#12 13.40 
-#12 13.41 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-#12 13.75   Creating an optimized production build ...
-#12 28.76 
-#12 28.76 > Build error occurred
-#12 28.77 Error: Turbopack build failed with 13 errors:
-#12 28.77 ./src/app/api/settings/integrations/[id]/route.ts:3:1
-#12 28.77 Module not found: Can't resolve '../../../../../../lib/auth'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77 > 3 | import { authOptions } from "../../../../../../lib/auth";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 | import { prisma } from "../../../../../../lib/prisma";
-#12 28.77   5 |
-#12 28.77   6 | export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/settings/integrations/[id]/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/settings/smtp/[id]/route.ts:3:1
-#12 28.77 Module not found: Can't resolve '../../../../../../lib/auth'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77 > 3 | import { authOptions } from "../../../../../../lib/auth";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 | import { prisma } from "../../../../../../lib/prisma";
-#12 28.77   5 |
-#12 28.77   6 | export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/settings/smtp/[id]/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/settings/integrations/[id]/route.ts:4:1
-#12 28.77 Module not found: Can't resolve '../../../../../../lib/prisma'
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77   3 | import { authOptions } from "../../../../../../lib/auth";
-#12 28.77 > 4 | import { prisma } from "../../../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   5 |
-#12 28.77   6 | export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-#12 28.77   7 |   const session = await getServerSession(authOptions);
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/settings/integrations/[id]/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/settings/smtp/[id]/route.ts:4:1
-#12 28.77 Module not found: Can't resolve '../../../../../../lib/prisma'
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77   3 | import { authOptions } from "../../../../../../lib/auth";
-#12 28.77 > 4 | import { prisma } from "../../../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   5 |
-#12 28.77   6 | export async function DELETE(req: Request, { params }: { params: { id: string } }) {
-#12 28.77   7 |   const session = await getServerSession(authOptions);
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/settings/smtp/[id]/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/automation/workflows/[id]/status/route.ts:3:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/auth'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77 > 3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77   5 |
-#12 28.77   6 | export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/automation/workflows/[id]/status/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/user/password/route.ts:3:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/auth'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77 > 3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77   5 | import bcrypt from "bcrypt";
-#12 28.77   6 |
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/user/password/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/user/profile/route.ts:3:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/auth'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77 > 3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77   5 |
-#12 28.77   6 | export async function PATCH(req: Request) {
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/user/profile/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/automation/workflows/[id]/status/route.ts:4:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/prisma'
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77   3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77 > 4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   5 |
-#12 28.77   6 | export async function PATCH(req: Request, { params }: { params: { id: string } }) {
-#12 28.77   7 |   const session = await getServerSession(authOptions);
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/automation/workflows/[id]/status/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/user/password/route.ts:4:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/prisma'
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77   3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77 > 4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   5 | import bcrypt from "bcrypt";
-#12 28.77   6 |
-#12 28.77   7 | export async function PATCH(req: Request) {
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/user/password/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/user/profile/route.ts:4:1
-#12 28.77 Module not found: Can't resolve '../../../../../lib/prisma'
-#12 28.77   2 | import { getServerSession } from "next-auth/next";
-#12 28.77   3 | import { authOptions } from "../../../../../lib/auth";
-#12 28.77 > 4 | import { prisma } from "../../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   5 |
-#12 28.77   6 | export async function PATCH(req: Request) {
-#12 28.77   7 |   const session = await getServerSession(authOptions);
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/user/profile/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/v1/wh/[webhookKey]/route.ts:2:1
-#12 28.77 Module not found: Can't resolve '../../../../lib/prisma'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77 > 2 | import { prisma } from "../../../../lib/prisma";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   3 |
-#12 28.77   4 | export async function POST(req: Request, { params }: { params: { webhookKey: string } }) {
-#12 28.77   5 |   const webhookKey = params.webhookKey;
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/v1/wh/[webhookKey]/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/webhooks/whatsapp/route.ts:3:1
-#12 28.77 Module not found: Can't resolve 'openai'
-#12 28.77   1 | import { NextResponse } from "next/server";
-#12 28.77   2 | import { prisma } from "../../../../lib/prisma";
-#12 28.77 > 3 | import OpenAI from "openai";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   4 |
-#12 28.77   5 | const openai = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
-#12 28.77   6 |
-#12 28.77 
-#12 28.77 
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/webhooks/whatsapp/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 https://nextjs.org/docs/messages/module-not-found
-#12 28.77 
-#12 28.77 
-#12 28.77 ./src/app/api/whatsapp/instance/[id]/knowledge/file/route.ts:5:1
-#12 28.77 Export default doesn't exist in target module
-#12 28.77   3 | import { authOptions } from "../../../../../../../lib/auth";
-#12 28.77   4 | import { prisma } from "../../../../../../../lib/prisma";
-#12 28.77 > 5 | import pdf from "pdf-parse";
-#12 28.77     | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-#12 28.77   6 |
-#12 28.77   7 | export async function POST(req: Request, { params }: { params: { id: string } }) {
-#12 28.77   8 |   const session = await getServerSession(authOptions);
-#12 28.77 
-#12 28.77 The export default was not found in module [project]/node_modules/pdf-parse/dist/pdf-parse/esm/index.js [app-route] (ecmascript).
-#12 28.77 Did you mean to import Rectangle?
-#12 28.77 All exports of the module are statically known (It doesn't have dynamic exports). So it's known statically that the requested export doesn't exist.
-#12 28.77 
-#12 28.77 Import trace:
-#12 28.77   App Route:
-#12 28.77     ./src/app/api/whatsapp/instance/[id]/knowledge/file/route.ts
-#12 28.77     ./src/lib/generated/prisma/index.js
-#12 28.77     ./src/lib/prisma.ts
-#12 28.77     ./src/app/api/automation/run/route.ts
-#12 28.77 
-#12 28.77 
-#12 28.77     at <unknown> (./src/app/api/settings/integrations/[id]/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/settings/smtp/[id]/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/settings/integrations/[id]/route.ts:4:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/settings/smtp/[id]/route.ts:4:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/automation/workflows/[id]/status/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/user/password/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/user/profile/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/automation/workflows/[id]/status/route.ts:4:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/user/password/route.ts:4:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/user/profile/route.ts:4:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/v1/wh/[webhookKey]/route.ts:2:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/webhooks/whatsapp/route.ts:3:1)
-#12 28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-#12 28.77     at <unknown> (./src/app/api/whatsapp/instance/[id]/knowledge/file/route.ts:5:1)
-#12 ERROR: process "/bin/bash -ol pipefail -c npx prisma generate && npx prisma migrate deploy && npm run build" did not complete successfully: exit code: 1
+#12 [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npm run build
+#12 2.104 Prisma schema loaded from prisma/schema.prisma
+#12 3.339 
+#12 3.339 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 377ms
+#12 3.339 
+#12 3.339 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#12 3.339 
+#12 3.339 Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
+#12 3.339 
+#12 3.557 npm notice
+#12 3.557 npm notice New major version of npm available! 10.8.2 -> 11.13.0
+#12 3.557 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+#12 3.557 npm notice To update run: npm install -g npm@11.13.0
+#12 3.557 npm notice
+#12 3.859 
+#12 3.859 > web@1.0.0 build
+#12 3.859 > prisma generate && next build
+#12 3.859 
+#12 4.833 Prisma schema loaded from prisma/schema.prisma
+#12 6.078 
+#12 6.078 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 427ms
+#12 6.078 
+#12 6.078 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#12 6.078 
+#12 6.078 Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
+#12 6.078 
+#12 6.248 ┌─────────────────────────────────────────────────────────┐
+#12 6.248 │  Update available 5.22.0 -> 7.8.0                       │
+#12 6.248 │                                                         │
+#12 6.248 │  This is a major update - please follow the guide at    │
+#12 6.248 │  https://pris.ly/d/major-version-upgrade                │
+#12 6.248 │                                                         │
+#12 6.248 │  Run the following to update                            │
+#12 6.248 │    npm i --save-dev prisma@latest                       │
+#12 6.248 │    npm i @prisma/client@latest                          │
+#12 6.248 └─────────────────────────────────────────────────────────┘
+#12 7.911 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 7.912 This information is used to shape Next.js' roadmap and prioritize features.
+#12 7.912 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 7.912 https://nextjs.org/telemetry
+#12 7.912 
+#12 7.940 ▲ Next.js 16.1.6 (Turbopack)
+#12 7.940 
+#12 7.947 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+#12 8.157   Creating an optimized production build ...
+#12 23.23 ✓ Compiled successfully in 14.4s
+#12 23.25   Running TypeScript ...
+#12 40.30 Failed to compile.
+#12 40.30 
+#12 40.30 Type error: Type 'typeof import("/app/src/app/api/automation/workflows/[id]/status/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/automation/workflows/[id]/status">'.
+#12 40.30   Types of property 'PATCH' are incompatible.
+#12 40.30     Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; name: string; nodes: string; connections: string; tenantId: string; createdAt: Date; status: string; updatedAt: Date; description: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+#12 40.30       Types of parameters '__1' and 'context' are incompatible.
+#12 40.30         Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+#12 40.30           Types of property 'params' are incompatible.
+#12 40.30             Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+#12 40.30 
+#12 40.41 Next.js build worker exited with code: 1 and signal: null
+#12 ERROR: process "/bin/bash -ol pipefail -c npx prisma generate && npm run build" did not complete successfully: exit code: 1
 ------
- > [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npx prisma migrate deploy && npm run build:
-28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-28.77     at <unknown> (./src/app/api/user/password/route.ts:4:1)
-28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-28.77     at <unknown> (./src/app/api/user/profile/route.ts:4:1)
-28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-28.77     at <unknown> (./src/app/api/v1/wh/[webhookKey]/route.ts:2:1)
-28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-28.77     at <unknown> (./src/app/api/webhooks/whatsapp/route.ts:3:1)
-28.77     at <unknown> (https://nextjs.org/docs/messages/module-not-found)
-28.77     at <unknown> (./src/app/api/whatsapp/instance/[id]/knowledge/file/route.ts:5:1)
+ > [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npm run build:
+40.30 
+40.30 Type error: Type 'typeof import("/app/src/app/api/automation/workflows/[id]/status/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/automation/workflows/[id]/status">'.
+40.30   Types of property 'PATCH' are incompatible.
+40.30     Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; name: string; nodes: string; connections: string; tenantId: string; createdAt: Date; status: string; updatedAt: Date; description: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
+40.30       Types of parameters '__1' and 'context' are incompatible.
+40.30         Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
+40.30           Types of property 'params' are incompatible.
+40.30             Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
+40.30 
+40.41 Next.js build worker exited with code: 1 and signal: null
 ------
 
  7 warnings found (use docker --debug to expand):
@@ -465,14 +160,14 @@ Dockerfile:24
 --------------------
   22 |     # build phase
   23 |     COPY . /app/.
-  24 | >>> RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npx prisma migrate deploy && npm run build
+  24 | >>> RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npm run build
   25 |     
   26 |     
 --------------------
-ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npx prisma generate && npx prisma migrate deploy && npm run build" did not complete successfully: exit code: 1
+ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npx prisma generate && npm run build" did not complete successfully: exit code: 1
 ##########################################
 ### Error
-### Mon, 04 May 2026 19:37:25 GMT
+### Mon, 04 May 2026 22:16:57 GMT
 ##########################################
 
-Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/dudemkt/hubia-web/code/web/.nixpacks/Dockerfile -t easypanel/dudemkt/hubia-web --label 'keep=true' --build-arg 'DATABASE_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'DIRECT_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'NEXTAUTH_SECRET=hubia_master_key_secure_2026_!@#' --build-arg 'NEXTAUTH_URL=https://hubianexus.com.br' --build-arg 'EVOLUTION_URL=https://api2.evidencemkt.cloud' --build-arg 'EVOLUTION_API_KEY=DUDEMKT_SECRET_2025_XYZ' --build-arg 'OPENAI_API_KEY=SUA_CHAVE_OPENAI_AQUI' --build-arg 'NIXPACKS_NODE_VERSION=20' --build-arg 'GIT_SHA=f329a9b8ab0ebcdad2a3b0d0468d81b07359cb77' /etc/easypanel/projects/dudemkt/hubia-web/code/web
+Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/dudemkt/hubia-web/code/web/.nixpacks/Dockerfile -t easypanel/dudemkt/hubia-web --label 'keep=true' --build-arg 'DATABASE_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'DIRECT_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'NEXTAUTH_SECRET=hubia_master_key_secure_2026_!@#' --build-arg 'NEXTAUTH_URL=https://hubianexus.com.br' --build-arg 'EVOLUTION_URL=https://api2.evidencemkt.cloud' --build-arg 'EVOLUTION_API_KEY=DUDEMKT_SECRET_2025_XYZ' --build-arg 'OPENAI_API_KEY=SUA_CHAVE_OPENAI_AQUI' --build-arg 'NIXPACKS_NODE_VERSION=20' --build-arg 'GIT_SHA=f70553c6c8ede99eec8df5d687bff749940ac518' /etc/easypanel/projects/dudemkt/hubia-web/code/web

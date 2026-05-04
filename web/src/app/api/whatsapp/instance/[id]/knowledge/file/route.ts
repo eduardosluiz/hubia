@@ -7,7 +7,8 @@ import * as pdfParse from "pdf-parse";
 // Fallback para lidar com a falta de default export no ESM do pdf-parse
 const pdf = (pdfParse as any).default || pdfParse;
 
-export async function POST(req: Request, { params }: { params: { id: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ id: string }> }) {
+  const { id } = await params;
   const session = await getServerSession(authOptions);
   if (!session) return NextResponse.json({ error: "Não autorizado" }, { status: 401 });
 
@@ -31,7 +32,7 @@ export async function POST(req: Request, { params }: { params: { id: string } })
 
     // Salvar o texto extraído no conhecimento da instância
     const updated = await prisma.whatsAppInstance.update({
-      where: { id: params.id },
+      where: { id: id },
       data: {
         knowledgeBase: extractedText
       }
