@@ -17,3 +17,12 @@
 - Table must always include columns: Identification, E-mail, Tags, and Status.
 - Modals must always have a Close (X) button in the top right.
 - Importing leads must allow bulk tagging.
+
+## 4. Deployment & Infrastructure (Mar 2026)
+- PLATFORM: Contabo VPS (Ubuntu) managed via Easypanel.
+- DOMAIN: hubianexus.com.br (Nameservers at Cloudflare, Registrar at Hostinger).
+- CLOUDFLARE: SSL must be in "Full" or "Full (Strict)" mode. Use "DNS Only" (Grey Cloud) for initial SSL validation in Easypanel.
+- DATABASE: Supabase PostgreSQL.
+- ADMIN CREDENTIALS: admin@hubia.com.br / admin123 (Created via `prisma/seed.ts`).
+- NEXT.JS 15+ CONFIG: Dynamic route parameters (`params`) MUST be awaited (e.g., `const { id } = await params;`).
+- PRISMA CASE SENSITIVITY: Ensure model names match exactly (e.g., `whatsAppInstance` with capital 'A').

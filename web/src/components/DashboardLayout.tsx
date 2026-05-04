@@ -13,7 +13,9 @@ import {
   ChevronRight,
   Bell,
   Search,
-  User
+  User,
+  LogOut,
+  ChevronDown
 } from 'lucide-react';
 
 import Link from 'next/link';
@@ -104,7 +106,16 @@ const Sidebar = ({ isOpen, toggle }: { isOpen: boolean, toggle: () => void }) =>
 // Layout Principal
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
   const { data: session } = useSession();
+
+  // Fecha o menu ao clicar fora
+  useEffect(() => {
+    if (!userMenuOpen) return;
+    const handleClose = () => setUserMenuOpen(false);
+    window.addEventListener('click', handleClose);
+    return () => window.removeEventListener('click', handleClose);
+  }, [userMenuOpen]);
 
   // Função para tocar a vinheta após login
   useEffect(() => {
@@ -144,22 +155,51 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <Bell size={18} />
               <span className="absolute top-1.5 right-1.5 w-1.5 h-1.5 bg-neon-purple rounded-full shadow-[0_0_5px_#8B5CF6]" />
             </button>
-            <div 
-              onClick={() => signOut()}
-              className="flex items-center gap-2.5 bg-white/5 border border-white/10 rounded-sm pl-1.5 pr-3 py-1 hover:bg-white/10 hover:border-red-500/50 cursor-pointer transition-all group"
-              title="Sair do Sistema"
-            >
-              <div className="w-7 h-7 rounded-sm bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center shadow-lg group-hover:shadow-red-500/20 transition-all">
-                <User size={16} className="text-white" />
+            
+            <div className="relative">
+              <div 
+                onClick={(e) => { e.stopPropagation(); setUserMenuOpen(!userMenuOpen); }}
+                className={`flex items-center gap-2.5 bg-white/5 border rounded-sm pl-1.5 pr-3 py-1 cursor-pointer transition-all group ${userMenuOpen ? 'border-neon-blue/50 bg-white/10' : 'border-white/10 hover:bg-white/10'}`}
+              >
+                <div className="w-7 h-7 rounded-sm bg-gradient-to-br from-neon-purple to-neon-blue flex items-center justify-center shadow-lg transition-all group-hover:scale-105">
+                  <User size={16} className="text-white" />
+                </div>
+                <div className="flex flex-col min-w-[100px]">
+                  <span className="text-xs font-bold uppercase tracking-tight transition-colors">
+                    {session?.user?.name || 'Operador'}
+                  </span>
+                  <span className="text-[8px] text-white/40 font-mono tracking-widest uppercase">
+                    {(session?.user as any)?.tenantName || 'Nexus_Guest'}
+                  </span>
+                </div>
+                <ChevronDown size={14} className={`text-white/20 transition-transform duration-300 ${userMenuOpen ? 'rotate-180 text-neon-blue' : ''}`} />
               </div>
-              <div className="flex flex-col">
-                <span className="text-xs font-bold uppercase tracking-tight group-hover:text-red-400 transition-colors">
-                  {session?.user?.name || 'Operador'}
-                </span>
-                <span className="text-[8px] text-white/40 font-mono tracking-widest uppercase">
-                  {(session?.user as any)?.tenantName || 'Nexus_Guest'}
-                </span>
-              </div>
+
+              <AnimatePresence>
+                {userMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    className="absolute right-0 mt-2 w-56 glass border border-white/10 rounded-sm shadow-2xl overflow-hidden z-50"
+                  >
+                    <div className="p-3 border-b border-white/5 bg-white/[0.02]">
+                      <p className="text-[9px] font-bold uppercase text-white/30 tracking-widest mb-1">Acesso_Nível</p>
+                      <p className="text-[10px] font-mono text-neon-blue">{(session?.user as any)?.role || 'USER_STANDARD'}</p>
+                    </div>
+                    
+                    <div className="p-1">
+                      <button 
+                        onClick={() => signOut({ callbackUrl: '/login' })}
+                        className="w-full flex items-center gap-3 px-3 py-2.5 text-red-400 hover:bg-red-500/10 rounded-sm transition-all group"
+                      >
+                        <LogOut size={16} className="group-hover:translate-x-0.5 transition-transform" />
+                        <span className="text-[10px] font-bold uppercase tracking-widest">Encerrar_Sessão</span>
+                      </button>
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </div>
           </div>
         </header>
