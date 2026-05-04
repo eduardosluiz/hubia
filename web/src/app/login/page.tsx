@@ -6,6 +6,8 @@ import { Shield, Lock, Mail, ChevronRight, Zap } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { signIn } from 'next-auth/react';
 
+export const dynamic = "force-dynamic";
+
 const LoginPage = () => {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
