@@ -2,7 +2,10 @@ import { NextResponse } from "next/server";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from '@/lib/auth';
 import { prisma } from '@/lib/prisma';
-import pdf from "pdf-parse";
+import * as pdfParse from "pdf-parse";
+
+// Fallback para lidar com a falta de default export no ESM do pdf-parse
+const pdf = (pdfParse as any).default || pdfParse;
 
 export async function POST(req: Request, { params }: { params: { id: string } }) {
   const session = await getServerSession(authOptions);
