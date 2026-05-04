@@ -1,7 +1,7 @@
-Commit: fix: resolve deployment failures by fixing tsconfig aliases and pdf-parse import incompatibility 
+Commit: fix: resolve Next.js 15 dynamic route parameter type errors in API routes 
 ##########################################
 ### Download Github Archive Started...
-### Mon, 04 May 2026 22:15:25 GMT
+### Mon, 04 May 2026 22:22:23 GMT
 ##########################################
 
 
@@ -31,16 +31,13 @@ Saved output to:
 #3 transferring context: 2B done
 #3 DONE 0.0s
 
-#4 [internal] load build context
-#4 ...
+#4 [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
+#4 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.0s done
+#4 DONE 0.1s
 
-#5 [stage-0  1/10] FROM ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de
-#5 resolve ghcr.io/railwayapp/nixpacks:ubuntu-1745885067@sha256:d45c89d80e13d7ad0fd555b5130f22a866d9dd10e861f589932303ef2314c7de 0.1s done
-#5 DONE 0.1s
-
-#4 [internal] load build context
-#4 transferring context: 40.54MB 0.5s done
-#4 DONE 0.5s
+#5 [internal] load build context
+#5 transferring context: 40.53MB 0.5s done
+#5 DONE 0.6s
 
 #6 [stage-0  2/10] WORKDIR /app/
 #6 CACHED
@@ -55,107 +52,107 @@ Saved output to:
 #9 DONE 0.3s
 
 #10 [stage-0  6/10] RUN --mount=type=cache,id=QgfsUKisego-/root/npm,target=/root/.npm npm install
-#10 38.51 
-#10 38.51 added 100 packages, and audited 101 packages in 38s
-#10 38.51 
-#10 38.51 24 packages are looking for funding
-#10 38.51   run `npm fund` for details
-#10 38.79 
-#10 38.79 5 vulnerabilities (4 moderate, 1 high)
-#10 38.79 
-#10 38.79 To address issues that do not require attention, run:
-#10 38.79   npm audit fix
-#10 38.79 
-#10 38.79 To address all issues (including breaking changes), run:
-#10 38.79   npm audit fix --force
-#10 38.79 
-#10 38.79 Run `npm audit` for details.
-#10 DONE 39.7s
+#10 34.98 
+#10 34.98 added 100 packages, and audited 101 packages in 34s
+#10 34.98 
+#10 34.98 24 packages are looking for funding
+#10 34.98   run `npm fund` for details
+#10 35.14 
+#10 35.14 5 vulnerabilities (4 moderate, 1 high)
+#10 35.14 
+#10 35.14 To address issues that do not require attention, run:
+#10 35.14   npm audit fix
+#10 35.14 
+#10 35.14 To address all issues (including breaking changes), run:
+#10 35.14   npm audit fix --force
+#10 35.14 
+#10 35.14 Run `npm audit` for details.
+#10 DONE 35.6s
 
 #11 [stage-0  7/10] COPY . /app/.
 #11 DONE 0.4s
 
 #12 [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npm run build
-#12 2.104 Prisma schema loaded from prisma/schema.prisma
-#12 3.339 
-#12 3.339 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 377ms
-#12 3.339 
-#12 3.339 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#12 3.339 
-#12 3.339 Tip: Need your database queries to be 1000x faster? Accelerate offers you that and more: https://pris.ly/tip-2-accelerate
-#12 3.339 
-#12 3.557 npm notice
-#12 3.557 npm notice New major version of npm available! 10.8.2 -> 11.13.0
-#12 3.557 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
-#12 3.557 npm notice To update run: npm install -g npm@11.13.0
-#12 3.557 npm notice
-#12 3.859 
-#12 3.859 > web@1.0.0 build
-#12 3.859 > prisma generate && next build
-#12 3.859 
-#12 4.833 Prisma schema loaded from prisma/schema.prisma
-#12 6.078 
-#12 6.078 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 427ms
-#12 6.078 
-#12 6.078 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
-#12 6.078 
-#12 6.078 Tip: Want to turn off tips and other hints? https://pris.ly/tip-4-nohints
-#12 6.078 
-#12 6.248 ┌─────────────────────────────────────────────────────────┐
-#12 6.248 │  Update available 5.22.0 -> 7.8.0                       │
-#12 6.248 │                                                         │
-#12 6.248 │  This is a major update - please follow the guide at    │
-#12 6.248 │  https://pris.ly/d/major-version-upgrade                │
-#12 6.248 │                                                         │
-#12 6.248 │  Run the following to update                            │
-#12 6.248 │    npm i --save-dev prisma@latest                       │
-#12 6.248 │    npm i @prisma/client@latest                          │
-#12 6.248 └─────────────────────────────────────────────────────────┘
-#12 7.911 Attention: Next.js now collects completely anonymous telemetry regarding usage.
-#12 7.912 This information is used to shape Next.js' roadmap and prioritize features.
-#12 7.912 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
-#12 7.912 https://nextjs.org/telemetry
-#12 7.912 
-#12 7.940 ▲ Next.js 16.1.6 (Turbopack)
-#12 7.940 
-#12 7.947 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
-#12 8.157   Creating an optimized production build ...
-#12 23.23 ✓ Compiled successfully in 14.4s
-#12 23.25   Running TypeScript ...
-#12 40.30 Failed to compile.
-#12 40.30 
-#12 40.30 Type error: Type 'typeof import("/app/src/app/api/automation/workflows/[id]/status/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/automation/workflows/[id]/status">'.
-#12 40.30   Types of property 'PATCH' are incompatible.
-#12 40.30     Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; name: string; nodes: string; connections: string; tenantId: string; createdAt: Date; status: string; updatedAt: Date; description: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
-#12 40.30       Types of parameters '__1' and 'context' are incompatible.
-#12 40.30         Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
-#12 40.30           Types of property 'params' are incompatible.
-#12 40.30             Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
-#12 40.30 
-#12 40.41 Next.js build worker exited with code: 1 and signal: null
+#12 2.030 Prisma schema loaded from prisma/schema.prisma
+#12 3.820 
+#12 3.820 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 629ms
+#12 3.820 
+#12 3.820 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#12 3.820 
+#12 3.820 Tip: Interested in query caching in just a few lines of code? Try Accelerate today! https://pris.ly/tip-3-accelerate
+#12 3.820 
+#12 4.042 npm notice
+#12 4.042 npm notice New major version of npm available! 10.8.2 -> 11.13.0
+#12 4.042 npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.13.0
+#12 4.042 npm notice To update run: npm install -g npm@11.13.0
+#12 4.042 npm notice
+#12 4.331 
+#12 4.331 > web@1.0.0 build
+#12 4.331 > prisma generate && next build
+#12 4.331 
+#12 5.388 Prisma schema loaded from prisma/schema.prisma
+#12 6.792 
+#12 6.792 ✔ Generated Prisma Client (v5.22.0) to ./node_modules/@prisma/client in 482ms
+#12 6.792 
+#12 6.792 Start by importing your Prisma Client (See: https://pris.ly/d/importing-client)
+#12 6.792 
+#12 6.792 Tip: Want real-time updates to your database without manual polling? Discover how with Pulse: https://pris.ly/tip-0-pulse
+#12 6.792 
+#12 6.989 ┌─────────────────────────────────────────────────────────┐
+#12 6.989 │  Update available 5.22.0 -> 7.8.0                       │
+#12 6.989 │                                                         │
+#12 6.989 │  This is a major update - please follow the guide at    │
+#12 6.989 │  https://pris.ly/d/major-version-upgrade                │
+#12 6.989 │                                                         │
+#12 6.989 │  Run the following to update                            │
+#12 6.989 │    npm i --save-dev prisma@latest                       │
+#12 6.989 │    npm i @prisma/client@latest                          │
+#12 6.989 └─────────────────────────────────────────────────────────┘
+#12 8.344 Attention: Next.js now collects completely anonymous telemetry regarding usage.
+#12 8.344 This information is used to shape Next.js' roadmap and prioritize features.
+#12 8.348 You can learn more, including how to opt-out if you'd not like to participate in this anonymous program, by visiting the following URL:
+#12 8.348 https://nextjs.org/telemetry
+#12 8.348 
+#12 8.378 ▲ Next.js 16.1.6 (Turbopack)
+#12 8.378 
+#12 8.389 ⚠ The "middleware" file convention is deprecated. Please use "proxy" instead. Learn more: https://nextjs.org/docs/messages/middleware-to-proxy
+#12 8.557   Creating an optimized production build ...
+#12 23.88 ✓ Compiled successfully in 14.7s
+#12 23.90   Running TypeScript ...
+#12 44.00 Failed to compile.
+#12 44.00 
+#12 44.00 Type error: Type 'typeof import("/app/src/app/api/v1/wh/[webhookKey]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/v1/wh/[webhookKey]">'.
+#12 44.00   Types of property 'POST' are incompatible.
+#12 44.00     Type '(req: Request, { params }: { params: { webhookKey: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ success: boolean; lead: string; tagApplied: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ webhookKey: string; }>; }) => void | Response | Promise<void | Response>'.
+#12 44.00       Types of parameters '__1' and 'context' are incompatible.
+#12 44.00         Type '{ params: Promise<{ webhookKey: string; }>; }' is not assignable to type '{ params: { webhookKey: string; }; }'.
+#12 44.00           Types of property 'params' are incompatible.
+#12 44.00             Property 'webhookKey' is missing in type 'Promise<{ webhookKey: string; }>' but required in type '{ webhookKey: string; }'.
+#12 44.00 
+#12 44.11 Next.js build worker exited with code: 1 and signal: null
 #12 ERROR: process "/bin/bash -ol pipefail -c npx prisma generate && npm run build" did not complete successfully: exit code: 1
 ------
  > [stage-0  8/10] RUN --mount=type=cache,id=QgfsUKisego-next/cache,target=/app/.next/cache --mount=type=cache,id=QgfsUKisego-node_modules/cache,target=/app/node_modules/.cache npx prisma generate && npm run build:
-40.30 
-40.30 Type error: Type 'typeof import("/app/src/app/api/automation/workflows/[id]/status/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/automation/workflows/[id]/status">'.
-40.30   Types of property 'PATCH' are incompatible.
-40.30     Type '(req: Request, { params }: { params: { id: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ id: string; name: string; nodes: string; connections: string; tenantId: string; createdAt: Date; status: string; updatedAt: Date; description: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ id: string; }>; }) => void | Response | Promise<void | Response>'.
-40.30       Types of parameters '__1' and 'context' are incompatible.
-40.30         Type '{ params: Promise<{ id: string; }>; }' is not assignable to type '{ params: { id: string; }; }'.
-40.30           Types of property 'params' are incompatible.
-40.30             Property 'id' is missing in type 'Promise<{ id: string; }>' but required in type '{ id: string; }'.
-40.30 
-40.41 Next.js build worker exited with code: 1 and signal: null
+44.00 
+44.00 Type error: Type 'typeof import("/app/src/app/api/v1/wh/[webhookKey]/route")' does not satisfy the constraint 'RouteHandlerConfig<"/api/v1/wh/[webhookKey]">'.
+44.00   Types of property 'POST' are incompatible.
+44.00     Type '(req: Request, { params }: { params: { webhookKey: string; }; }) => Promise<NextResponse<{ error: string; }> | NextResponse<{ success: boolean; lead: string; tagApplied: string; }>>' is not assignable to type '(request: NextRequest, context: { params: Promise<{ webhookKey: string; }>; }) => void | Response | Promise<void | Response>'.
+44.00       Types of parameters '__1' and 'context' are incompatible.
+44.00         Type '{ params: Promise<{ webhookKey: string; }>; }' is not assignable to type '{ params: { webhookKey: string; }; }'.
+44.00           Types of property 'params' are incompatible.
+44.00             Property 'webhookKey' is missing in type 'Promise<{ webhookKey: string; }>' but required in type '{ webhookKey: string; }'.
+44.00 
+44.11 Next.js build worker exited with code: 1 and signal: null
 ------
 
  7 warnings found (use docker --debug to expand):
- - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "NEXTAUTH_SECRET") (line 12)
  - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "OPENAI_API_KEY") (line 12)
  - UndefinedVar: Usage of undefined variable '$NIXPACKS_PATH' (line 18)
  - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "EVOLUTION_API_KEY") (line 11)
  - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "NEXTAUTH_SECRET") (line 11)
  - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ARG "OPENAI_API_KEY") (line 11)
  - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "EVOLUTION_API_KEY") (line 12)
+ - SecretsUsedInArgOrEnv: Do not use ARG or ENV instructions for sensitive data (ENV "NEXTAUTH_SECRET") (line 12)
 Dockerfile:24
 --------------------
   22 |     # build phase
@@ -167,7 +164,7 @@ Dockerfile:24
 ERROR: failed to build: failed to solve: process "/bin/bash -ol pipefail -c npx prisma generate && npm run build" did not complete successfully: exit code: 1
 ##########################################
 ### Error
-### Mon, 04 May 2026 22:16:57 GMT
+### Mon, 04 May 2026 22:23:57 GMT
 ##########################################
 
-Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/dudemkt/hubia-web/code/web/.nixpacks/Dockerfile -t easypanel/dudemkt/hubia-web --label 'keep=true' --build-arg 'DATABASE_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'DIRECT_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'NEXTAUTH_SECRET=hubia_master_key_secure_2026_!@#' --build-arg 'NEXTAUTH_URL=https://hubianexus.com.br' --build-arg 'EVOLUTION_URL=https://api2.evidencemkt.cloud' --build-arg 'EVOLUTION_API_KEY=DUDEMKT_SECRET_2025_XYZ' --build-arg 'OPENAI_API_KEY=SUA_CHAVE_OPENAI_AQUI' --build-arg 'NIXPACKS_NODE_VERSION=20' --build-arg 'GIT_SHA=f70553c6c8ede99eec8df5d687bff749940ac518' /etc/easypanel/projects/dudemkt/hubia-web/code/web
+Command failed with exit code 1: docker buildx build --network host -f /etc/easypanel/projects/dudemkt/hubia-web/code/web/.nixpacks/Dockerfile -t easypanel/dudemkt/hubia-web --label 'keep=true' --build-arg 'DATABASE_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'DIRECT_URL=postgresql://postgres.asfdxcjtydwltfndxetc:Supabase248622@aws-1-sa-east-1.pooler.supabase.com:5432/postgres' --build-arg 'NEXTAUTH_SECRET=hubia_master_key_secure_2026_!@#' --build-arg 'NEXTAUTH_URL=https://hubianexus.com.br' --build-arg 'EVOLUTION_URL=https://api2.evidencemkt.cloud' --build-arg 'EVOLUTION_API_KEY=DUDEMKT_SECRET_2025_XYZ' --build-arg 'OPENAI_API_KEY=SUA_CHAVE_OPENAI_AQUI' --build-arg 'NIXPACKS_NODE_VERSION=20' --build-arg 'GIT_SHA=220b6db8d10d9c08b953324b9fede5024dab6a62' /etc/easypanel/projects/dudemkt/hubia-web/code/web

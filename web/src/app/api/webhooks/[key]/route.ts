@@ -1,9 +1,9 @@
 import { NextResponse } from 'next/server';
 import { prisma } from '@/lib/prisma';
 
-export async function POST(req: Request, { params }: { params: { key: string } }) {
+export async function POST(req: Request, { params }: { params: Promise<{ key: string }> }) {
   try {
-    const { key } = params;
+    const { key } = await params;
     const body = await req.json();
 
     // 1. Localiza a integração pela chave do Webhook

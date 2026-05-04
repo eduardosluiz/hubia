@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
 import { prisma } from '@/lib/prisma';
 
-export async function POST(req: Request, { params }: { params: { webhookKey: string } }) {
-  const webhookKey = params.webhookKey;
+export async function POST(req: Request, { params }: { params: Promise<{ webhookKey: string }> }) {
+  const { webhookKey } = await params;
 
   try {
     // 1. Identificar a Integração pela Chave Única
