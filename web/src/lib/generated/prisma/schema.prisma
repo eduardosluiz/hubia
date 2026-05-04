@@ -1,0 +1,225 @@
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "debian-openssl-3.0.x"]
+  output        = "../src/lib/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Tenant {
+  id             String  @id @default(cuid())
+  name           String
+  slug           String? @unique // Ex: "empresa-alfa"
+  evolutionUrl   String?
+  evolutionToken String?
+
+  // Limites do Plano
+  maxUsers     Int @default(3)
+  maxLeads     Int @default(1000)
+  maxWorkflows Int @default(5)
+
+  status    String   @default("ACTIVE") // ACTIVE, TRIAL_EXPIRED, SUSPENDED
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users        User[]
+  leads        Lead[]
+  tags         Tag[]
+  audiences    Audience[]
+  instances    WhatsAppInstance[]
+  queues       AttendanceQueue[]
+  workflows    Workflow[]
+  integrations Integration[]
+  smtpAccounts SmtpAccount[]
+  campaigns    Campaign[]
+  subscription Subscription?
+}
+
+model Campaign {
+  id        String   @id @default(cuid())
+  name      String
+  subject   String
+  content   String // Armazena o HTML do layout
+  status    String   @default("DRAFT")
+  sentCount Int      @default(0)
+  openRate  Float    @default(0)
+  clickRate Float    @default(0)
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SmtpAccount {
+  id        String   @id @default(cuid())
+  name      String // Nome amigável (ex: Projeto X, Suporte)
+  host      String
+  port      Int      @default(465)
+  user      String
+  pass      String
+  secure    Boolean  @default(true)
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Subscription {
+  id               String    @id @default(cuid())
+  planId           String
+  plan             Plan      @relation(fields: [planId], references: [id])
+  tenantId         String    @unique
+  tenant           Tenant    @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  stripeCustomerId String?
+  stripeSubId      String?
+  status           String    @default("TRIAL") // TRIAL, ACTIVE, PAST_DUE, CANCELED
+  currentPeriodEnd DateTime?
+  createdAt        DateTime  @default(now())
+  updatedAt        DateTime  @updatedAt
+}
+
+model Plan {
+  id            String         @id @default(cuid())
+  name          String // Starter, Pro, Enterprise
+  price         Float
+  interval      String         @default("MONTHLY") // MONTHLY, YEARLY
+  maxUsers      Int
+  maxLeads      Int
+  maxWorkflows  Int
+  stripePriceId String?
+  subscriptions Subscription[]
+  createdAt     DateTime       @default(now())
+}
+
+model Integration {
+  id         String  @id @default(cuid())
+  name       String // Ex: "Vendas Kiwify Produto X"
+  platform   String // KIWIFY, HOTMART, ELEMENTOR, CUSTOM_WEBHOOK
+  type       String  @default("WEBHOOK") // WEBHOOK, API_POLLING
+  webhookKey String  @unique @default(cuid())
+  config     String? // JSON stringified: { apiKey: "", secret: "", productIds: [] }
+  autoTag    String?
+
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  password  String
+  name      String?
+  role      String   @default("USER") // USER, ADMIN, SUPERADMIN
+  createdAt DateTime @default(now())
+  tenantId  String
+  tenant    Tenant   @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+}
+
+model Workflow {
+  id          String              @id @default(cuid())
+  name        String
+  description String?
+  status      String              @default("ACTIVE")
+  nodes       String
+  connections String
+  createdAt   DateTime            @default(now())
+  updatedAt   DateTime            @updatedAt
+  tenantId    String
+  tenant      Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  executions  WorkflowExecution[]
+}
+
+model WorkflowExecution {
+  id          String    @id @default(cuid())
+  status      String    @default("QUEUED")
+  currentNode String?
+  nextStepAt  DateTime?
+  workflowId  String
+  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  leadId      String
+  lead        Lead      @relation(fields: [leadId], references: [id], onDelete: Cascade)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@unique([workflowId, leadId])
+}
+
+model Lead {
+  id           String              @id @default(cuid())
+  name         String
+  phone        String
+  email        String?
+  status       String              @default("ACTIVE")
+  source       String              @default("MANUAL")
+  obs          String?
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  tenantId     String
+  tenant       Tenant              @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  tags         Tag[]               @relation("LeadTags")
+  audiences    Audience[]          @relation("LeadAudiences")
+  workflowExec WorkflowExecution[]
+}
+
+model WhatsAppInstance {
+  id              String            @id @default(cuid())
+  instanceName    String
+  owner           String?
+  type            String            @default("AGENT")
+  status          String            @default("DISCONNECTED")
+  aiEnabled       Boolean           @default(false)
+  aiPrompt        String?
+  aiModel         String            @default("gpt-4o")
+  knowledgeBase   String?
+  tenantId        String
+  tenant          Tenant            @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  asMainInQueues  AttendanceQueue[] @relation("MainIA")
+  asAgentInQueues QueueAgent[]
+}
+
+model AttendanceQueue {
+  id             String           @id @default(cuid())
+  name           String
+  mainInstanceId String
+  mainInstance   WhatsAppInstance @relation("MainIA", fields: [mainInstanceId], references: [id])
+  tenantId       String
+  tenant         Tenant           @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  lastAgentIndex Int              @default(0)
+  agents         QueueAgent[]
+}
+
+model QueueAgent {
+  id         String           @id @default(cuid())
+  order      Int
+  queueId    String
+  queue      AttendanceQueue  @relation(fields: [queueId], references: [id], onDelete: Cascade)
+  instanceId String
+  instance   WhatsAppInstance @relation(fields: [instanceId], references: [id], onDelete: Cascade)
+}
+
+model Tag {
+  id       String  @id @default(cuid())
+  name     String
+  color    String?
+  tenantId String
+  tenant   Tenant  @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  leads    Lead[]  @relation("LeadTags")
+
+  @@unique([name, tenantId])
+}
+
+model Audience {
+  id       String @id @default(cuid())
+  name     String
+  tenantId String
+  tenant   Tenant @relation(fields: [tenantId], references: [id], onDelete: Cascade)
+  leads    Lead[] @relation("LeadAudiences")
+
+  @@unique([name, tenantId])
+}
